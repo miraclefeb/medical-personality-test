@@ -14,14 +14,16 @@
     <script>
         // 页面加载时检查用户状态
         document.addEventListener("DOMContentLoaded", () => {
-    if (checkUrlParams()) return;
-
-    const userInfo = localStorage.getItem('userInfo');
-    if (!userInfo || !JSON.parse(userInfo).registered) {
-        window.location.replace('register.html');
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 检查是否有 startTest 参数
+    if (urlParams.has('startTest')) {
+        // 直接开始测试（会自动检查注册状态）
+        startTest();
         return;
     }
-
+    
+    if (checkUrlParams()) return;
     renderStartPage();
 });
 
@@ -498,13 +500,23 @@
         }
               
                 // 开始测试
-      function startTest() {
-            currentQuestion = 0;
-            selectedOption = null;
-            // 重置分数
-            Object.keys(scores).forEach(key => { scores[key] = 0; });
-            renderQuestion();
-        }
+                function startTest() {
+    const userInfo = localStorage.getItem('userInfo');
+    
+    // 检查是否已注册
+    if (!userInfo || !JSON.parse(userInfo).registered) {
+        // 未注册，跳转到注册页面
+        window.location.href = 'register.html';
+        return;
+    }
+    
+    // 已注册，开始测试
+    currentQuestion = 0;
+    selectedOption = null;
+    // 重置分数
+    Object.keys(scores).forEach(key => { scores[key] = 0; });
+    renderQuestion();
+}
   
                 // 显示完整结果
      function showResult() {
@@ -569,8 +581,9 @@
             
             <!-- 5. 操作按钮 -->
             <div class="result-actions">
-                <button class="btn-primary" onclick="shareResult()">分享结果</button>
-                <button class="btn-secondary" onclick="restartTest()">重新测试</button>
+                <button class="btn btn-primary" onclick="shareResult()">分享结果</button>
+                <button class="btn btn-secondary" onclick="restartTest()">重新测试</button>
+
             </div>
         </div>
     `;
@@ -655,29 +668,7 @@
             return false;
         }
 
-// 初始化 - 修复重复刷新问题
-let initialized = false; // 防止重复初始化
-
-function initializeApp() {
-    if (initialized) return;
-    initialized = true;
-    
-    if (!checkUrlParams()) {
-        const userInfo = localStorage.getItem('userInfo');
-        if (userInfo && JSON.parse(userInfo).registered) {
-            console.log('用户已注册，显示开始页面');
-            renderStartPage();
-        } else {
-            console.log('用户未注册，跳转到注册页面');
-            window.location.href = 'register.html';
-        }
-    }
-}
-
-// 使用 DOMContentLoaded 而不是 onload
-document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-});
+        
     </script>
 </body>
 </html>

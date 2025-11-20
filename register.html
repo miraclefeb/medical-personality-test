@@ -222,36 +222,31 @@
         });
 
         // 开始测试函数
-        function startTest() {
-            const phone = document.getElementById('phoneInput').value;
-            const preview = document.getElementById('avatarPreview');
-            const avatar = preview.src || '';
-            
-            // 简单的手机号验证
-            if (!phone || phone.length !== 11) {
-                alert('请输入正确的手机号');
-                return;
-            }
-            
-            // 保存用户信息到本地存储
-            const userInfo = {
-                phone: phone,
-                avatar: avatar,
-                registered: true
-            };
-            localStorage.setItem('userInfo', JSON.stringify(userInfo));
-            
-            // 跳转到测试页面
-            window.location.href = 'index.html';
-        }
-        
-        // 检查是否已经注册
-        document.addEventListener("DOMContentLoaded", () => {
-    const userInfo = localStorage.getItem('userInfo');
-    if (userInfo && JSON.parse(userInfo).registered) {
-        window.location.replace('index.html');
+        // 开始测试函数
+function startTest() {
+    const phone = document.getElementById('phoneInput').value;
+    const preview = document.getElementById('avatarPreview');
+    const avatar = preview.src || '';
+    
+    // 简单的手机号验证
+    if (!phone || phone.length !== 11) {
+        alert('请输入正确的手机号');
+        return;
     }
-});
+    
+    // 保存用户信息到本地存储
+    const userInfo = {
+        phone: phone,
+        avatar: avatar,
+        registered: true
+    };
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    
+    // 注册完成后直接开始测试（跳转到测试题页面）
+    window.location.href = 'index.html?startTest=true';
+}
+        
+
 
     </script>
 </body>
