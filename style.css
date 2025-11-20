@@ -1,3 +1,13 @@
+/* 预加载关键背景图 */
+body::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: -1;
+    background-image: url('images/background.jpg');
+}
 /* 全局布局 */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -42,6 +52,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     z-index: -2;
+    /* 添加性能优化 */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 .page::after {
@@ -949,17 +962,18 @@ body.register-body {
     width: 100%;
 }
 
+/* 修复结果页按钮布局 - 确保在所有设备上横向排列 */
 .result-actions {
     display: flex;
+    flex-direction: row !important; /* 强制横向排列 */
     gap: 16px;
     justify-content: center;
     margin-top: auto;
     width: 100%;
     align-items: center;
-    flex-direction: row; /* 确保横向排列 */
 }
 
-/* 强制设置结果页按钮的大尺寸 */
+/* 强制按钮横向排列，覆盖所有可能的媒体查询 */
 .result-actions .btn {
     width: 160px !important;
     height: 56px !important;
@@ -970,6 +984,32 @@ body.register-body {
     align-items: center !important;
     justify-content: center !important;
     flex: 0 0 auto !important;
+    min-width: 140px !important; /* 确保最小宽度 */
+}
+
+/* 针对小屏幕设备的特殊调整 */
+@media (max-width: 420px) {
+    .result-actions {
+        flex-direction: row !important; /* 在小屏幕上仍然强制横向 */
+        gap: 12px;
+        padding: 0 10px;
+    }
+    
+    .result-actions .btn {
+        width: 48% !important; /* 使用百分比宽度适应小屏幕 */
+        min-width: auto !important;
+        font-size: 1rem !important;
+        padding: 14px 16px !important;
+    }
+}
+
+/* 针对超小屏幕的额外保护 */
+@media (max-width: 360px) {
+    .result-actions .btn {
+        width: 46% !important; /* 更小的百分比 */
+        font-size: 0.95rem !important;
+        padding: 12px 14px !important;
+    }
 }
 
 .result-page .btn-primary {
