@@ -539,7 +539,7 @@
             <div class="result-content">
                 <!-- 头像和标题区域 -->
                 <div class="result-header">
-                    <img src="${avatarUrl}" alt="用户头像" class="result-avatar">
+                    <img src="${avatarUrl}" alt="用户头像" class="result-avatar" loading="lazy">
                     <div class="result-title-container">
                         <!-- 1. 结果名称 -->
                         <div class="result-main-title">${result.name}</div>
@@ -555,19 +555,19 @@
                 <div class="result-icon-layout">
                     <!-- 动物形象 - 占据主要位置 -->
                     <div class="main-animal">
-                        <img src="images/icons/${dimensionA}.png" alt="${testData.dimensions[dimensionA].name}">
+                       <img src="images/icons/${dimensionA}.png" alt="${testData.dimensions[dimensionA].name}" loading="lazy">
                     </div>
                     
                     <!-- 右侧两个元素图标 -->
                     <div class="side-icons">
                         <div class="side-icon">
                             <div class="icon-circle">
-                                <img src="images/icons/${dimensionB}.png" alt="${testData.dimensions[dimensionB].name}">
+                                <img src="images/icons/${dimensionB}.png" alt="${testData.dimensions[dimensionB].name}" loading="lazy">
                             </div>
                         </div>
                         <div class="side-icon">
                             <div class="icon-circle">
-                                <img src="images/icons/${dimensionC}.png" alt="${testData.dimensions[dimensionC].name}">
+                                <img src="images/icons/${dimensionC}.png" alt="${testData.dimensions[dimensionC].name}" loading="lazy">
                             </div>
                         </div>
                     </div>
@@ -668,7 +668,7 @@
             return false;
         }
 
-        
+
     </script>
 </body>
 </html>

@@ -230,7 +230,7 @@ h1 {
 .question-title {
     margin: 0;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #6b3c1f;
     line-height: 1.5;
@@ -956,6 +956,7 @@ body.register-body {
     margin-top: auto;
     width: 100%;
     align-items: center;
+    flex-direction: row; /* 确保横向排列 */
 }
 
 /* 强制设置结果页按钮的大尺寸 */
@@ -997,14 +998,15 @@ body.register-body {
 /* 确保在移动端按钮也足够大 */
 @media (max-width: 480px) {
     .result-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: row; /* 改为横向排列 */
+        flex-wrap: wrap; /* 允许换行 */
     }
     
     .result-actions .btn {
         width: 140px !important;
         height: 52px !important;
         font-size: 1.05rem !important;
+        flex: 0 0 auto; /* 防止按钮被压缩 */
     }
 }
 
