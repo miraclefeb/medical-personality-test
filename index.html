@@ -12,6 +12,24 @@
     </div>
 
     <script>
+        // 页面加载时检查用户状态
+window.onload = function() {
+    // 先检查 URL 参数（保持原有功能）
+    if (checkUrlParams()) {
+        return;
+    }
+    
+    // 检查用户是否注册
+    const userInfo = localStorage.getItem('userInfo');
+    if (!userInfo || !JSON.parse(userInfo).registered) {
+        // 如果未注册，跳转到注册页面
+        window.location.href = 'register.html';
+        return;
+    }
+    
+    // 如果已注册，显示开始页面
+    renderStartPage();
+};
         // 完整的测试数据
         const testData = {
             questions: [
@@ -492,19 +510,27 @@
   
                 // 显示完整结果
      function showResult() {
-            const dimensionA = getTopDimension(['A1', 'A2', 'A3', 'A4']);
-            const dimensionB = getTopDimension(['B1', 'B2', 'B3', 'B4']);
-            const dimensionC = getTopDimension(['C1', 'C2', 'C3', 'C4']);
-            
-            const resultKey = `${dimensionA}-${dimensionB}-${dimensionC}`;
-            const result = testData.results[resultKey] || {
-                name: '独特的探索者',
-                description: '你的组合非常独特，展现了多元化的职业特质。你在不同情境下能够灵活切换思维模式，是医疗团队中难得的全能型人才。'
-            };
+    const dimensionA = getTopDimension(['A1', 'A2', 'A3', 'A4']);
+    const dimensionB = getTopDimension(['B1', 'B2', 'B3', 'B4']);
+    const dimensionC = getTopDimension(['C1', 'C2', 'C3', 'C4']);
+    
+    const resultKey = `${dimensionA}-${dimensionB}-${dimensionC}`;
+    const result = testData.results[resultKey] || {
+        name: '独特的探索者',
+        description: '你的组合非常独特，展现了多元化的职业特质。你在不同情境下能够灵活切换思维模式，是医疗团队中难得的全能型人才。'
+    };          
 
-            document.getElementById('app').innerHTML = `
-                <div class="page result-page">
-                    <div class="result-content">
+    // 获取用户信息
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const avatarUrl = userInfo ? userInfo.avatar : 'images/default-avatar.png';
+
+    document.getElementById('app').innerHTML = `
+        <div class="page result-page">
+            <div class="result-content">
+                <!-- 头像和标题区域 -->
+                <div class="result-header">
+                    <img src="${avatarUrl}" alt="用户头像" class="result-avatar">
+                    <div class="result-title-container">
                         <!-- 1. 结果名称 -->
                         <div class="result-main-title">${result.name}</div>
                         
@@ -512,43 +538,46 @@
                         <div class="result-combination">
                             ${testData.dimensions[dimensionA].name} · ${testData.dimensions[dimensionB].name} · ${testData.dimensions[dimensionC].name}
                         </div>
-                        
-                        <!-- 3. 图标区域 -->
-                        <div class="result-icon-layout">
-                            <!-- 动物形象 - 占据主要位置 -->
-                            <div class="main-animal">
-                                <img src="images/icons/${dimensionA}.png" alt="${testData.dimensions[dimensionA].name}">
-                            </div>
-                            
-                            <!-- 右侧两个元素图标 -->
-                            <div class="side-icons">
-                                <div class="side-icon">
-                                    <div class="icon-circle">
-                                        <img src="images/icons/${dimensionB}.png" alt="${testData.dimensions[dimensionB].name}">
-                                    </div>
-                                </div>
-                                <div class="side-icon">
-                                    <div class="icon-circle">
-                                        <img src="images/icons/${dimensionC}.png" alt="${testData.dimensions[dimensionC].name}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 4. 结果描述 -->
-                        <div class="result-description">
-                            ${result.description}
-                        </div>
-                    </div>
-                    
-                    <!-- 5. 操作按钮 -->
-                    <div class="result-actions">
-                        <button class="btn-primary" onclick="shareResult()">分享结果</button>
-                        <button class="btn-secondary" onclick="restartTest()">重新测试</button>
                     </div>
                 </div>
-            `;
-        }
+                
+                <!-- 3. 图标区域 -->
+                <div class="result-icon-layout">
+                    <!-- 动物形象 - 占据主要位置 -->
+                    <div class="main-animal">
+                        <img src="images/icons/${dimensionA}.png" alt="${testData.dimensions[dimensionA].name}">
+                    </div>
+                    
+                    <!-- 右侧两个元素图标 -->
+                    <div class="side-icons">
+                        <div class="side-icon">
+                            <div class="icon-circle">
+                                <img src="images/icons/${dimensionB}.png" alt="${testData.dimensions[dimensionB].name}">
+                            </div>
+                        </div>
+                        <div class="side-icon">
+                            <div class="icon-circle">
+                                <img src="images/icons/${dimensionC}.png" alt="${testData.dimensions[dimensionC].name}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 4. 结果描述 -->
+                <div class="result-description">
+                    ${result.description}
+                </div>
+            </div>
+            
+            <!-- 5. 操作按钮 -->
+            <div class="result-actions">
+                <button class="btn-primary" onclick="shareResult()">分享结果</button>
+                <button class="btn-secondary" onclick="restartTest()">重新测试</button>
+            </div>
+        </div>
+    `;
+}
+        
           // 复制到剪贴板
     function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
