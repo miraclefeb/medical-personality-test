@@ -152,17 +152,6 @@ body {
     display: block;
 }
 
-@media (max-width: 480px) {
-    .start-page {
-        padding: 48px 20px 72px;
-        gap: 28px;
-    }
-
-    .start-title-image {
-        width: min(280px, 85%);
-    }
-}
-
 .start-button {
     width: 100%;
     max-width: 280px;
@@ -340,26 +329,50 @@ h1 {
 }
 
 .result-combination {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #2563eb;
-    margin: 1rem 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: #8b5a3c;
+    font-family: "Hiragino Kaku Gothic Std", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    letter-spacing: 0.1em; /* 减少字母间距 */
+    margin-top: 5px; /* 调整与标题的间距 */
 }
 
-.result-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 1rem 0;
-    color: #1f2937;
-}
+
 
 .result-description {
-    background: #f8fafc;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin: 1rem 0;
-    line-height: 1.8;
-    border-left: 4px solid #2563eb;
+    background: rgba(255, 252, 247, 0.95);
+    padding: 24px 22px;
+    border-radius: 18px;
+    font-size: 1.02rem;
+    line-height: 1.76;
+    color: #4a321d;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(107, 60, 31, 0.12);
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;        /* 新增：让描述框整体居中 */
+    text-align: left;    /* 新增：对齐方式 */
+}
+
+
+/* 确保整个结果内容区域左对齐 */
+.result-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start; /* 改为左对齐 */
+    padding-left: 20px; /* 使用你提供的左侧距离 */
+    padding-top: 131px; /* 使用你提供的顶部距离 */
+}
+
+/* 确保图标布局也左对齐 */
+.result-icon-layout {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 改为左对齐 */
+    gap: 36px;
+    width: 100%;
+    max-width: 420px;
 }
 
 .action-buttons {
@@ -368,35 +381,7 @@ h1 {
     margin-top: 2rem;
 }
 
-.btn-primary {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    flex: 2;
-}
 
-.btn-secondary {
-    background: transparent;
-    color: #2563eb;
-    border: 2px solid #2563eb;
-    padding: 10px 22px;
-    border-radius: 6px;
-    cursor: pointer;
-    flex: 1;
-}
-.page {
-    /* 已有样式 */
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-/* 在现有CSS末尾添加以下内容 */
 
 /* 微交互优化 */
 .option:active {
@@ -574,30 +559,32 @@ h1 {
     align-items: center;
 }
 
-.result-main-title {
-    font-size: 2.1rem;
-    font-weight: 800;
-    color: #6b3c1f;
-    text-align: center;
-    letter-spacing: 0.05em;
-    text-shadow: 0 3px 6px rgba(107, 60, 31, 0.2);
-}
+
 
 .result-combination {
     font-size: 1.05rem;
     color: #5c3418;
     font-weight: 700;
-    letter-spacing: 0.35em;
+    letter-spacing: 0.1em;/* 原来是 0.35，改得紧一点 */
     text-align: center;
 }
 
 .result-icon-layout {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 36px;
+    justify-content: flex-start;
+    gap: 15px; /* 减少主图标与侧图标的间距 */
     width: 100%;
-    max-width: 420px;
+    max-width: 380px; /* 稍微减少最大宽度 */
+    margin-top: 15px; /* 调整与标题的间距 */
+}
+
+.side-icons {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* 减少两个侧图标之间的间距 */
 }
 
 .main-animal {
@@ -680,10 +667,7 @@ body.register-body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    gap: 32px;
 }
 
 .avatar-section {
@@ -691,22 +675,39 @@ body.register-body {
     justify-content: center;
 }
 
-.avatar-circle {
+.avatar-uploader {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.avatar-ring {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 164px;
+    height: 164px;
     border-radius: 50%;
-    background: linear-gradient(180deg, #ffe3c0 0%, #ffd0a0 100%);
-    box-shadow: 0 14px 28px rgba(190, 106, 45, 0.25);
-    border: 6px solid #fff1d8;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    background: linear-gradient(180deg, rgba(255, 231, 193, 0.95) 0%, rgba(255, 209, 167, 0.95) 100%);
+    border: 4px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 16px 32px rgba(186, 110, 54, 0.25);
+}
+
+.avatar-base {
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.88);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
 }
 
-.avatar-circle img {
+.avatar-base img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -714,106 +715,88 @@ body.register-body {
     transition: opacity 0.2s ease;
 }
 
-.avatar-circle img.visible {
+.avatar-base img.visible {
     opacity: 1;
 }
 
 .avatar-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: #c86832;
-    font-size: 0.95rem;
-    font-weight: 600;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+    text-align: center;
+    color: #6c757d;
+    font-size: 12px;
+    background: transparent; /* 确保背景透明 */
 }
 
 .avatar-placeholder.hidden {
     opacity: 0;
 }
 
-.avatar-camera-icon {
-    width: 40px;
-    height: 40px;
+.avatar-icon {
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: #fff5eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #fff2e0;
     position: relative;
 }
 
-.avatar-camera-icon::before,
-.avatar-camera-icon::after {
+.avatar-icon::before,
+.avatar-icon::after {
     content: "";
     position: absolute;
     border-radius: 3px;
     background: #c86832;
 }
 
-.avatar-camera-icon::before {
+.avatar-icon::before {
     width: 18px;
     height: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.avatar-camera-icon::after {
+.avatar-icon::after {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     top: calc(50% - 3px);
     left: calc(50% - 3px);
-    background: #fff5eb;
+    background: #fff2e0;
     box-shadow: inset 0 0 0 2px #c86832;
 }
 
-.avatar-badge {
+.avatar-mini-icon {
     position: absolute;
-    right: 18px;
-    bottom: 14px;
+    bottom: 6px;
+    right: 10px;
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: none;
     background: linear-gradient(180deg, #d06c35 0%, #b15324 100%);
-    box-shadow: 0 6px 16px rgba(188, 97, 34, 0.32);
+    box-shadow: 0 10px 20px rgba(188, 97, 34, 0.32);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
 
-.badge-camera-icon {
-    position: relative;
-    width: 18px;
-    height: 18px;
-}
-
-.badge-camera-icon::before,
-.badge-camera-icon::after {
+.avatar-mini-icon::before,
+.avatar-mini-icon::after {
     content: "";
     position: absolute;
-    border-radius: 2px;
+    border-radius: 3px;
     background: #ffe7d2;
 }
 
-.badge-camera-icon::before {
-    width: 14px;
-    height: 10px;
-    top: 3px;
-    left: 2px;
+.avatar-mini-icon::before {
+    width: 16px;
+    height: 12px;
 }
 
-.badge-camera-icon::after {
-    width: 4px;
-    height: 4px;
+.avatar-mini-icon::after {
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    top: 6px;
-    left: 7px;
+    top: calc(50% - 3px);
+    left: calc(50% - 3px);
     background: transparent;
     box-shadow: inset 0 0 0 2px #ffe7d2;
 }
@@ -874,7 +857,7 @@ body.register-body {
     padding: 16px;
     border-radius: 18px;
     border: 2px solid rgba(208, 108, 53, 0.2);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.);
     font-size: 1rem;
     color: #4a2f16;
     box-shadow: 0 8px 16px rgba(208, 108, 53, 0.12);
@@ -919,9 +902,20 @@ body.register-body {
     }
 
     .avatar-circle {
-        width: 132px;
-        height: 132px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: transparent; /* 改为透明背景 */
+        margin: 0 auto;
+        position: relative;
+        border: none; /* 去掉边框 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden;
     }
+    
 
     .register-submit {
         font-size: 1rem;
@@ -960,29 +954,58 @@ body.register-body {
     gap: 16px;
     justify-content: center;
     margin-top: auto;
+    width: 100%;
+    align-items: center;
+}
+
+/* 强制设置结果页按钮的大尺寸 */
+.result-actions .btn {
+    width: 160px !important;
+    height: 56px !important;
+    padding: 16px 24px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
 }
 
 .result-page .btn-primary {
-    background: #d06c35;
-    border: 2px solid #65290d;
-    color: #fff5ec;
-    box-shadow: 0 6px 16px rgba(101, 41, 13, 0.22);
+    background: #d06c35 !important;
+    border: 2px solid #65290d !important;
+    color: #fff5ec !important;
+    box-shadow: 0 6px 16px rgba(101, 41, 13, 0.22) !important;
 }
 
 .result-page .btn-primary:hover {
-    background: #e27a3e;
-    transform: translateY(-2px);
+    background: #e27a3e !important;
+    transform: translateY(-2px) !important;
 }
 
 .result-page .btn-secondary {
-    background: #fffcfa;
-    border: 2px solid #65290d;
-    color: #c5662e;
+    background: #fffcfa !important;
+    border: 2px solid #65290d !important;
+    color: #c5662e !important;
 }
 
 .result-page .btn-secondary:hover {
-    background: rgba(208, 108, 53, 0.1);
-    transform: translateY(-2px);
+    background: rgba(208, 108, 53, 0.1) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 确保在移动端按钮也足够大 */
+@media (max-width: 480px) {
+    .result-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .result-actions .btn {
+        width: 140px !important;
+        height: 52px !important;
+        font-size: 1.05rem !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1095,23 +1118,24 @@ body.register-body {
     font-size: 16px;
 }
 /* 结果页头像样式 */
+/* 结果页标题区域优化 - 匹配第二个图效果 */
 .result-header {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
-    padding: 15px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0; /* 去掉内边距 */
+    background: transparent !important; /* 去掉底色 */
+    box-shadow: none !important; /* 去掉阴影 */
+    border-radius: 0 !important; /* 去掉圆角 */
 }
 
 .result-avatar {
-    width: 70px;
-    height: 70px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #4CAF50;
-    margin-right: 20px;
+    border: 2px solid #65290d;
+    margin-right: 15px;
     flex-shrink: 0;
     background: white;
 }
@@ -1122,15 +1146,42 @@ body.register-body {
 }
 
 .result-main-title {
-    font-size: 22px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 8px;
+    font-size: 28px; /* 根据你的设计调整 */
+    font-weight: 800; /* W8 字重 */
+    color: #6b3c1f;
+    margin-bottom: 4px;
     line-height: 1.2;
+    font-family: "Hiragino Kaku Gothic Std", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 .result-combination {
-    font-size: 14px;
-    color: #7f8c8d;
-    font-weight: 500;
+    font-size: 20px; /* 根据你的设计调整 */
+    font-weight: 800; /* W8 字重 */
+    color: #8b5a3c;
+    font-family: "Hiragino Kaku Gothic Std", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* 如果需要调整整体布局位置 */
+.result-content {
+    padding-top: 131px; /* 距离顶部 */
+    padding-left: 20px; /* 距离左侧 */
+    text-align: left;
+}
+.badge-camera-icon::before {
+    content: ""; /* 去掉加号 */
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url('images/camera.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.btn-primary, .btn-secondary {
+    width: 100%;
+    max-width: 280px;
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    font-weight: 700;
 }

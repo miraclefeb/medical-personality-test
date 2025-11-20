@@ -13,23 +13,18 @@
 
     <script>
         // 页面加载时检查用户状态
-window.onload = function() {
-    // 先检查 URL 参数（保持原有功能）
-    if (checkUrlParams()) {
-        return;
-    }
-    
-    // 检查用户是否注册
+        document.addEventListener("DOMContentLoaded", () => {
+    if (checkUrlParams()) return;
+
     const userInfo = localStorage.getItem('userInfo');
     if (!userInfo || !JSON.parse(userInfo).registered) {
-        // 如果未注册，跳转到注册页面
-        window.location.href = 'register.html';
+        window.location.replace('register.html');
         return;
     }
-    
-    // 如果已注册，显示开始页面
+
     renderStartPage();
-};
+});
+
         // 完整的测试数据
         const testData = {
             questions: [
@@ -660,22 +655,29 @@ window.onload = function() {
             return false;
         }
 
-        // 初始化
-if (!checkUrlParams()) {
-    // 检查用户是否注册
-    const userInfo = localStorage.getItem('userInfo');
-    console.log('用户信息:', userInfo); // 调试用
+// 初始化 - 修复重复刷新问题
+let initialized = false; // 防止重复初始化
+
+function initializeApp() {
+    if (initialized) return;
+    initialized = true;
     
-    if (!userInfo || !JSON.parse(userInfo).registered) {
-        console.log('未注册，跳转到注册页面'); // 调试用
-        // 如果未注册，跳转到注册页面
-        window.location.href = 'register.html';
-        return;
+    if (!checkUrlParams()) {
+        const userInfo = localStorage.getItem('userInfo');
+        if (userInfo && JSON.parse(userInfo).registered) {
+            console.log('用户已注册，显示开始页面');
+            renderStartPage();
+        } else {
+            console.log('用户未注册，跳转到注册页面');
+            window.location.href = 'register.html';
+        }
     }
-    
-    console.log('已注册，显示开始页面'); // 调试用
-    renderStartPage();
 }
+
+// 使用 DOMContentLoaded 而不是 onload
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+});
     </script>
 </body>
 </html>

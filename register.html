@@ -5,28 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注册 - 医生趣味测试</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body.register-body {
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 注册页面内容区域 */
+        .register-page {
+            width: 100%;
+            max-width: 380px; /* 限制最大宽度为手机尺寸 */
+            min-height: 844px;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 24px;
+        }
+
+        /* 注册卡片 */
+        .register-shell {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 头像区域 */
+        .avatar-section {
+            margin-bottom: 30px;
+        }
+  
+        .avatar-placeholder {
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+.avatar-icon {
+    width: 42px;
+    height: 42px;
+    background-image: url('images/camera.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.avatar-mini-icon {
+    background-image: url('images/camera.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* 隐藏原来的绘制图标 */
+.avatar-icon::before,
+.avatar-icon::after,
+.avatar-mini-icon::before,
+.avatar-mini-icon::after {
+    display: none;
+}
+        .avatar-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            background: #65290d;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+
+
+        /* 表单字段 */
+        .register-field {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .field-icon {
+            margin-right: 8px;
+        }
+
+        #phoneInput {
+            width: 100%;
+            padding: 10px 60px;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            font-size: 16px;
+            background: white;
+        }
+
+        #phoneInput:focus {
+            outline: none;
+            border-color: #65290d;
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
+
+        /* 提交按钮 */
+        .register-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #65290d, #65290d);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .register-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* 头像预览 */
+        #avatarPreview {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: none;
+        }
+
+        #avatarPreview.visible {
+            display: block;
+        }
+
+        .avatar-placeholder.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body class="register-body">
     <div class="register-page">
         <div class="register-shell">
             <div class="avatar-section">
-                <div class="avatar-circle" onclick="document.getElementById('avatarInput').click()">
-                    <img id="avatarPreview" alt="头像预览">
-                    <div class="avatar-placeholder" id="avatarPlaceholder">
-                        <span class="avatar-camera-icon"></span>
-                        <span>点击上传</span>
+                <button type="button" class="avatar-uploader" onclick="document.getElementById('avatarInput').click()">
+                    <div class="avatar-ring">
+                        <div class="avatar-base">
+                            <img id="avatarPreview" src="images/default-avatar.png" alt="头像预览" class="visible">
+                            <div class="avatar-placeholder" id="avatarPlaceholder">
+                                <span class="avatar-icon"></span>            
+                            </div>
+                        </div>
+                        <span class="avatar-mini-icon"></span>
                     </div>
-                    <button type="button" class="avatar-badge" onclick="document.getElementById('avatarInput').click()">
-                        <span class="badge-camera-icon"></span>
-                    </button>
-                </div>
+                </button>
                 <input type="file" id="avatarInput" class="file-input" accept="image/*">
             </div>
 
             <div class="register-field">
                 <label for="phoneInput" class="field-label">
-                    <span class="field-icon phone-icon"></span>
-                    手机号
+                    
                 </label>
                 <input type="tel" id="phoneInput" placeholder="请输入11位手机号" maxlength="11">
             </div>
@@ -77,13 +246,13 @@
         }
         
         // 检查是否已经注册
-        window.onload = function() {
-            const userInfo = localStorage.getItem('userInfo');
-            if (userInfo && JSON.parse(userInfo).registered) {
-                // 如果已经注册，直接跳转到测试页面
-                window.location.href = 'index.html';
-            }
-        };
+        document.addEventListener("DOMContentLoaded", () => {
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo && JSON.parse(userInfo).registered) {
+        window.location.replace('index.html');
+    }
+});
+
     </script>
 </body>
 </html>
