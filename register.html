@@ -5,90 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注册 - 医生趣味测试</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .register-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            text-align: center;
-        }
-        .avatar-upload {
-            margin: 20px 0;
-        }
-        .avatar-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #4CAF50;
-            margin: 10px auto;
-        }
-        .file-input {
-            display: none;
-        }
-        .upload-btn {
-            background: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .phone-input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .start-btn {
-            background: #2196F3;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-    </style>
 </head>
-<body>
-    <div class="register-container">
-        <h1>开始测试</h1>
-        <p>上传头像并输入手机号开始测试</p>
-        
-        <div class="avatar-upload">
-            <img id="avatarPreview" src="images/default-avatar.png" alt="头像预览" class="avatar-preview">
-            <input type="file" id="avatarInput" class="file-input" accept="image/*">
-            <button class="upload-btn" onclick="document.getElementById('avatarInput').click()">
-                选择头像
-            </button>
+<body class="register-body">
+    <div class="register-page">
+        <div class="register-shell">
+            <div class="avatar-section">
+                <div class="avatar-circle" onclick="document.getElementById('avatarInput').click()">
+                    <img id="avatarPreview" alt="头像预览">
+                    <div class="avatar-placeholder" id="avatarPlaceholder">
+                        <span class="avatar-camera-icon"></span>
+                        <span>点击上传</span>
+                    </div>
+                    <button type="button" class="avatar-badge" onclick="document.getElementById('avatarInput').click()">
+                        <span class="badge-camera-icon"></span>
+                    </button>
+                </div>
+                <input type="file" id="avatarInput" class="file-input" accept="image/*">
+            </div>
+
+            <div class="register-field">
+                <label for="phoneInput" class="field-label">
+                    <span class="field-icon phone-icon"></span>
+                    手机号
+                </label>
+                <input type="tel" id="phoneInput" placeholder="请输入11位手机号" maxlength="11">
+            </div>
+
+            <button class="register-submit" onclick="startTest()">完成注册，开始测试</button>
         </div>
-        
-        <input type="tel" id="phoneInput" class="phone-input" placeholder="请输入手机号" maxlength="11">
-        
-        <button class="start-btn" onclick="startTest()">开始测试</button>
     </div>
 
     <script>
         // 头像预览功能
         document.getElementById('avatarInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const preview = document.getElementById('avatarPreview');
+                const placeholder = document.getElementById('avatarPlaceholder');
+                preview.src = evt.target.result;
+                preview.classList.add('visible');
+                placeholder.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
         });
 
         // 开始测试函数
         function startTest() {
             const phone = document.getElementById('phoneInput').value;
-            const avatar = document.getElementById('avatarPreview').src;
+            const preview = document.getElementById('avatarPreview');
+            const avatar = preview.src || '';
             
             // 简单的手机号验证
             if (!phone || phone.length !== 11) {

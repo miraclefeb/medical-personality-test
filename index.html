@@ -421,7 +421,10 @@ window.onload = function() {
         function renderStartPage() {
             document.getElementById('app').innerHTML = `
                 <div class="page start-page">
-                    <img class="start-title-image" src="images/start-title.png" alt="职业人格测试标题">
+                    <div class="start-title-wrapper">
+                        <img class="start-title-image" src="images/start-title.png" alt="职业人格测试标题">
+                        <span class="start-title-tag">医生专属</span>
+                    </div>
                     <div class="start-illustration">
                         <img src="${START_PAGE_ILLUSTRATION}" alt="猫头鹰医生插画">
                     </div>
@@ -658,7 +661,19 @@ window.onload = function() {
         }
 
         // 初始化
-        if (!checkUrlParams()) {
+if (!checkUrlParams()) {
+    // 检查用户是否注册
+    const userInfo = localStorage.getItem('userInfo');
+    console.log('用户信息:', userInfo); // 调试用
+    
+    if (!userInfo || !JSON.parse(userInfo).registered) {
+        console.log('未注册，跳转到注册页面'); // 调试用
+        // 如果未注册，跳转到注册页面
+        window.location.href = 'register.html';
+        return;
+    }
+    
+    console.log('已注册，显示开始页面'); // 调试用
     renderStartPage();
 }
     </script>
